@@ -153,11 +153,10 @@ class AddressBook(UserDict):
         """
         console = Console()
         table = Table(title="Address Book")
+        
         first_record = next(iter(book.data.values()), None)
 
         record_attributes = list(first_record.__dict__.keys())
-        print(first_record)
-        print(record_attributes)
         # Add columns dynamically based on the attributes
         for attribute in record_attributes:
             column_name = attribute.capitalize()  # Convert attribute name to title case
@@ -198,8 +197,9 @@ class AddressBook(UserDict):
             return "Sorry, the search parameter must be at least 3 characters."
 
         result = UserDict()
+        
 
-        for i, record in enumerate(self.values()):
+        for i, record in enumerate(self.data.values()):
             if param.lower() in record.name.value.lower():
                 result[record.name.value] = record
             elif param.isdigit():
