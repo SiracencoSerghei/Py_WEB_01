@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "Py_WEB_01"
+version = "0.1.0"
+description = "Web-HomeWork-01"
+authors = ["siracencoserghei <siracencoserghei@gmail.com>"]
+readme = "README.md"
+packages = [{include = "Py_WEB_01"}]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+rich = "^13.7.0"
+prompt-toolkit = "^3.0.43"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
