@@ -224,8 +224,8 @@ class AddressBook(UserDict):
 
         # result = '\n'.join(result)
         # print(result)
-        # self.show_records(result)
-        return result
+        self.show_records(result)
+        # return result
 
     def edit_contact(self, search_param):
         if len(search_param) < 3:

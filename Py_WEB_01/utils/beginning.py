@@ -1,4 +1,4 @@
-# from cyber_sentinels_helper_app.ContactBot import ContactBot
+from utils.actions import run_contact_bot
 from rich.tree import Tree
 from rich import print as rprint
 
@@ -18,7 +18,10 @@ def beginning():
         rprint(tree)
         action = int(input("What action do you want to choose?\n \t"))
 
-        if action == 1 or action == 2:
+        if action == 1:
+            run_contact_bot()
+            
+        elif action == 2:
             print("1_2")
         elif action == 3:
             print(3)
