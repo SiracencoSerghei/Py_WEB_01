@@ -20,8 +20,6 @@ def beginning():
 
         if action == 1 or action == 2:
             print("1_2")
-            # Uncomment the following line if you plan to use ContactBot
-            # bot.run(action)
         elif action == 3:
             print(3)
             # help()
