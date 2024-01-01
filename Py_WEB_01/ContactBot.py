@@ -6,7 +6,8 @@ from prompt_toolkit.completion import WordCompleter
 from contacts.AddressBook import AddressBook
 from utils.beginning import beginning
 from utils.goodbye import good_bye
-
+from utils.contactsMenu import show_contacts_menu
+from  utils.chooseCommand import choseCommand
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -19,16 +20,6 @@ RESET = "\033[0m"
 #  ================================
 
 class ContactBot:
-    # noinspection PyTypeChecker
-    def __init__(self):
-        self.__known_commands = ("add-contact", "edit-contact", "find-in-contacts", "delete-contact",
-                                 "show-contact", "days-to-birthday", "exit")
-        self.session = PromptSession(
-            history=FileHistory('outputs/history.txt'),
-            completer=WordCompleter(self.__known_commands),
-        )
-
-
     def run(self):
         """Main function for user interaction.
 
@@ -42,25 +33,16 @@ class ContactBot:
             print(f"{YELLOW}Creating a new address book.{RESET}")
             book = AddressBook()  # Creating a new instance
         while True:
-            user_input = self.session.prompt("... ")
-            if user_input == "":
-                print(f"{RED}Empty input !!!{RESET}")
-                continue
-            input_data = user_input.split()
-            input_command = input_data[0].lower()
-            if input_command in self.__known_commands:
-                match input_command:
-                    case 'exit':
-                        print(f"{RED}{good_bye()}{RESET}")
-                        break
-                    case "find-in-contacts":
-                        try:
-                            search_param = input("Enter search parameter: \t...")
-                            book.find(search_param)
-                            
-                        except IndexError:
-                            print(f"{RED}You have to provide a search parameter after 'find'.{RESET}")
+            show_contacts_menu()
+            command = choseCommand()
 
+            if command is not None:
+                match command:
+                    case 8:
+                        print(f"{RED}You have reached the main menu{RESET}")
+                        break
+                    case 3:
+                        book.find()
                     case "show-contact":
                         try:
                             book.show_records(book)

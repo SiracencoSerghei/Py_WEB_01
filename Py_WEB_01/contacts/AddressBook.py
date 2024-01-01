@@ -180,7 +180,7 @@ class AddressBook(UserDict):
 
         console.print(table)
 
-    def find(self, param) -> UserDict:
+    def find(self) -> UserDict:
         """
         Find records that match the given parameter.
 
@@ -193,39 +193,50 @@ class AddressBook(UserDict):
         Note:
             If the search parameter is less than 3 characters, it returns an error message.
         """
-        if len(param) < 3:
-            return "Sorry, the search parameter must be at least 3 characters."
+        while True:
+            try:
+                print("To find what you are looking for...")
+                param = input("Enter search parameter (Press Enter to exit): ")
+                if not param:
+                    break
 
-        result = UserDict()
-        
+                if len(param) < 3:
+                    print(f"{PINK}Sorry, the search parameter must be at least 3 characters.{RESET}")
+                    continue
+                result = UserDict()
 
-        for i, record in enumerate(self.data.values()):
-            if param.lower() in record.name.value.lower():
-                result[record.name.value] = record
-            elif param.isdigit():
-                matching_phones = [
-                    phone for phone in record.get_all_phones() if param in phone
-                ]
-                if matching_phones:
-                    result[record.name.value] = record
-            elif record.birthday and param in str(record.birthday):
-                result[record.name.value] = record
-            elif record.email and param.lower() in record.email.lower():
-                result[record.name.value] = record
-            elif record.address and param.lower() in record.address.lower():
-                result[record.name.value] = record
-            elif record.status and param.lower() in record.status.lower():
-                result[record.name.value] = record
-            elif record.note and param.lower() in record.note.lower():
-                result[record.name.value] = record
+                for i, record in enumerate(self.data.values()):
+                    if param.lower() in record.name.value.lower():
+                        result[record.name.value] = record
+                    elif param.isdigit():
+                        matching_phones = [
+                            phone for phone in record.get_all_phones() if param in phone
+                        ]
+                        if matching_phones:
+                            result[record.name.value] = record
+                    elif record.birthday and param in str(record.birthday):
+                        result[record.name.value] = record
+                    elif record.email and param.lower() in record.email.lower():
+                        result[record.name.value] = record
+                    elif record.address and param.lower() in record.address.lower():
+                        result[record.name.value] = record
+                    elif record.status and param.lower() in record.status.lower():
+                        result[record.name.value] = record
+                    elif record.note and param.lower() in record.note.lower():
+                        result[record.name.value] = record
 
-        if not result:
-            return "No records found for the given parameter."
+                if not result:
+                    return "No records found for the given parameter."
 
-        # result = '\n'.join(result)
-        # print(result)
-        self.show_records(result)
-        # return result
+                # result = '\n'.join(result)
+                # print(result)
+                self.show_records(result)
+                # return result
+
+
+            except IndexError:
+                print(f"{RED}You have to provide a search parameter after 'find'.{RESET}")
+
 
     def edit_contact(self, search_param):
         if len(search_param) < 3:
