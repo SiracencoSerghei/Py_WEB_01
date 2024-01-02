@@ -23,6 +23,8 @@ class Email(Field):
         if not self.is_valid(new_value):
             raise ValueError(f"{R}Not valid email{RES}")
         self.value = new_value
+    def __str__(self):
+        return str(self.value)
 
 if __name__ == '__main__':
     e = Email('AZE@AZE.AZE')

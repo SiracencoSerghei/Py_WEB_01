@@ -13,7 +13,7 @@ def show_contacts_menu():
                      "2. edit-contact",
                      "3. find-in-contacts",
                      "4. delete-contact",
-                     "5. show-contact",
+                     "5. show-records",
                      "6. congratulate",
                      "7. days-to-birthday",
                      "8. exit")

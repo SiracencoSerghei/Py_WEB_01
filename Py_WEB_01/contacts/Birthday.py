@@ -40,6 +40,8 @@ class Birthday(Field):
             return delta.days
         else:
             return None
+    def __str__(self):
+        return str(self.value)
 
 if __name__ == '__main__':
     b = Birthday('2024-10-30')

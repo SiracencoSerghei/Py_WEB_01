@@ -23,6 +23,8 @@ class Address(Field):
         # maybe need to do like record with fields like street, house, ....etc
         # For simplicity, this example assumes any non-empty string is a valid address
         return bool(value)
+    def __str__(self):
+        return str(self.value)
 
 # Example usage:
 if __name__ == '__main__':

@@ -24,6 +24,8 @@ class Status(Field):
             raise ValueError("Invalid status")
         self.value = new_value
 
+    def __str__(self):
+        return str(self.value)
 if __name__ == "__main__":
     # Example usage:
     status = Status("work")

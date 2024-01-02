@@ -24,4 +24,5 @@ class Name(Field):
             raise ValueError("Name must be at least one character long")
         self.value = new_value
 
-    
+    def __str__(self):
+        return str(self.value)

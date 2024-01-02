@@ -43,8 +43,8 @@ class Record:
 
 
     @input_errors
-    def edit_name(self, new_value):
-        self.name.__set__(self, new_value)
+    def edit_name(self, value):
+        self.name = Name(value)
 
 
     def days_to_birthday(self):

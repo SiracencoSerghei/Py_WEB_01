@@ -20,3 +20,5 @@ class Note(Field):
         if not self.is_valid_note(new_value):
             raise ValueError("Note must be at least one character long")
         self.value = new_value
+    def __str__(self):
+        return str(self.value)

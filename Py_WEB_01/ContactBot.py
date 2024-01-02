@@ -38,11 +38,29 @@ class ContactBot:
 
             if command is not None:
                 match command:
+                    case 1:
+                        book.add_contact()
+                    case 2:
+                        book.edit_contact()
+                    case 3:
+                        book.find()
+                    case 4:
+                        book.del_record()
+                    case 5:
+                        result = book
+                        if not result:
+                            break
+                        book.show_records(result)
+                    case 6:
+                        # book.congratulate()
+                        pass
+
+                    case 7:
+                        book.days_to_birthday()
+
                     case 8:
                         print(f"{RED}You have reached the main menu{RESET}")
                         break
-                    case 3:
-                        book.find()
                     case "show-contact":
                         try:
                             book.show_records(book)
