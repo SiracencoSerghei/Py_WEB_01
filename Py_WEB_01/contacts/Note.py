@@ -22,3 +22,4 @@ class Note(Field):
         self.value = new_value
     def __str__(self):
         return str(self.value)
+    

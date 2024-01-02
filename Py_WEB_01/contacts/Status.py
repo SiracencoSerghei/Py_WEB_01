@@ -30,3 +30,4 @@ if __name__ == "__main__":
     # Example usage:
     status = Status("work")
     print(status.value)
+    

@@ -35,6 +35,8 @@ class ContactBot:
         while True:
             show_contacts_menu()
             command = choseCommand()
+            if command is False:
+                continue
 
             if command is not None:
                 match command:

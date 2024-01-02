@@ -18,4 +18,4 @@ def choseCommand():
             print("Please, enter the number.")
     else:
         print(f"{RED}Empty input !!!{RESET}")
-        return None
+        return False
