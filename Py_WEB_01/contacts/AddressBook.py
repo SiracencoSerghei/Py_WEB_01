@@ -38,13 +38,7 @@ class AddressBook(UserDict):
                     address = input("Enter the address (optional, press Enter to skip): ").strip() or None
                     status = input("Enter the status (optional, press Enter to skip): ").strip() or None
                     note = input("Enter the note (optional, press Enter to skip): ").strip() or None
-                    print(name, birthday, email, address, status, note)
-                    print(type(name))
-                    print(type(birthday))
-                    print(type(email))
-                    print(type(address))
-                    print(type(status))
-                    print(type(note))
+
                     new_record = Record(name, birthday, email, address, status, note)
                 # Додавання телефонів
                 while True:
@@ -115,99 +109,6 @@ class AddressBook(UserDict):
             # print("Successfully saved to", file_name)
         except Exception as e:
             print(f"Error saving to {file_name}: {e}")
-
-
-    def edit_contact(self):
-        while True:
-            search_param = input("Enter the name (optional, press Enter to exit): ").strip()
-
-            # Check if the name is provided
-            if not search_param:
-                print("Exiting without editing.")
-                return
-
-            if len(search_param) < 3:
-                print("Sorry, the search parameter must be at least 3 characters.")
-                continue
-            break
-        matching_records = []
-        for record in self.values():
-            if (
-                    search_param.lower() in record.name.value.lower()
-                    or search_param in record.get_all_phones()
-            ):
-                matching_records.append(record)
-
-        if not matching_records:
-            print("No records found for the given parameter.")
-            return
-
-        print("Matching records:")
-        for i, record in enumerate(matching_records, start=1):
-            print(f"{i}. {record.name.value}")
-
-        try:
-            choice = int(input("Enter the number of the contact to edit: "))
-            if 1 <= choice <= len(matching_records):
-                selected_record = matching_records[choice - 1]
-                field_name = input(
-                    "Enter the field to edit (name, birthday, email, status, note, phone, address): "
-                )
-
-                # Check if the entered field name is valid
-                if field_name == "name":
-                    new_value = input("Enter the new name: ")
-                    selected_record.edit_name(new_value)
-                    print(
-                        f"Contact '{selected_record.name.value}' updated successfully."
-                    )
-                elif field_name == "birthday":
-                    new_value = input("Enter the new birthday: ")
-                    selected_record.edit_birthday(new_value)
-                    print(
-                        f"Contact '{selected_record.name.value}' updated successfully."
-                    )
-                elif field_name == "email":
-                    new_value = input("Enter the new email: ")
-                    selected_record.edit_email(new_value)
-                    print(
-                        f"Contact '{selected_record.name.value}' updated successfully."
-                    )
-                elif field_name == "status":
-                    new_value = input("Enter the new status: ")
-                    selected_record.edit_status(new_value)
-                    print(
-                        f"Contact '{selected_record.name.value}' updated successfully."
-                    )
-                elif field_name == "note":
-                    new_value = input("Enter the new note: ")
-                    selected_record.edit_note(new_value)
-                    print(
-                        f"Contact '{selected_record.name.value}' updated successfully."
-                    )
-                elif field_name == "phone":
-                    old_phone = input("Enter the old phone: ")
-                    new_phone = input("Enter the new phone: ")
-                    selected_record.edit_phone(old_phone, new_phone)
-                    print(
-                        f"Contact '{selected_record.name.value}' updated successfully."
-                    )
-                elif field_name == "address":
-                    new_value = input("Enter the new address: ")
-                    selected_record.edit_address(new_value)
-                    print(f"Contact '{selected_record.name.value}' updated successfully.")
-                else:
-                    print("Invalid field name.")
-                    return  # Add a return statement here to prevent saving in case of an invalid field
-
-                # After editing, save the changes to the file
-                self.save_to_json_file()
-
-            else:
-                print("Invalid choice. Please enter a valid number.")
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
-            
 
     def del_record(self):
         """Delete a record from the address book.
@@ -330,7 +231,7 @@ class AddressBook(UserDict):
         while True:
             try:
                 print("To find what you are looking for...")
-                param = input("Enter search parameter (Press Enter to exit): ")
+                param = input("Enter search parameter (optional, press Enter to exit): ")
                 if not param:
                     break
 
@@ -363,7 +264,7 @@ class AddressBook(UserDict):
                     print("No records found for the given parameter.")
                     return
 
-                self.show_records(result)
+                # self.show_records(result)
                 return result
 
 
@@ -371,6 +272,110 @@ class AddressBook(UserDict):
                 print(f"{RED}{e}{RESET}")
 
 
+    
+    def edit_contact(self):
+        print("Now you have to choose edit parameter...")
+        searched_contacts = self.find()
+        print("searched_contacts: ", searched_contacts)
+        print(" TYPE OF searched_contacts: ", type(searched_contacts))
+        if not searched_contacts:
+            return
+        matching_records = []
+        for i, record in enumerate(searched_contacts, start=1):
+            print(f"\n{i}. {record}\n\t")
+            print(self.data[record])
+            matching_records.append(record)
+            print("matching_records: ", matching_records)
+            
+        try:
+            choice = input("Enter the contact's number to edit(optional, press Enter to exit):.... ")
+            if choice == "":
+                return
+            choice = int(choice)
+            if 1 <= choice <= len(matching_records):
+                selected_name_of_record = matching_records[choice - 1]
+                print("1:  ", selected_name_of_record)
+                selected_record = searched_contacts[selected_name_of_record]
+                print("2: ", selected_record)
+                while True:
+                    try:
+                        console = Console()
+                        table = Table(title="Record Fields:")
+                        first_record = next(iter(self.data.values()), None)
+
+                        record_attributes = list(first_record.__dict__.keys())
+                        # Add columns dynamically based on the attributes
+                        table.add_column("Number", justify="center")
+                        table.add_column("Column Name", justify="center")
+                        for i, attribute in enumerate(record_attributes, start=1):
+                            column_name = f"  {attribute.capitalize()}"
+                            table.add_row(str(i), column_name)
+
+                        console.print(table)
+
+                        
+                        field_name = input("Choose the field for Editing (optional, press Enter to exit)...")
+                        if field_name == "":
+                            return
+                        field_name = int(field_name)
+
+                        fields = {
+                            1: "name",
+                            2: "birthday",
+                            3: "phones",
+                            4: "email",
+                            5: "address",
+                            6: "status",
+                            7: "note",
+                        }
+                        print(field_name)
+                        print(type(field_name))
+                        print(fields.keys())
+                        print(type(list(fields.keys())[0])) 
+
+                        if field_name in fields:
+                            field_key = fields[field_name]
+                            print(field_key)
+                            if field_name == 3:
+                                old_phone = input(f"Enter the old phone: ")
+                                new_phone = input(f"Enter the new phone: ")
+                                selected_record.edit_phone(old_phone, new_phone)
+                            else:
+                                new_value = input(f"Enter the new {field_key}: ")
+                                setattr(selected_record, field_key, new_value)
+                            self.save_to_json_file()
+                        else:
+                            print("Invalid field number.")
+                    except ValueError:
+                        print("You must choose valid number!")
+                        continue
+
+                                        
+
+                # After editing, save the changes to the file
+                self.save_to_json_file()
+                print(f"Contact '{selected_record.name.value}' updated successfully.")
+
+            else:
+                print("Invalid choice. Please enter a valid number.")
+                return
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+    def days_to_birthday(self):
+        if self:
+            # Создаем список кортежей (record_name, days_to_birthday)
+            results = [(record.name.value, record.days_to_birthday()) for record in self.data.values()
+                       if record.birthday]
+
+            # Сортируем список по второму элементу (количество дней до дня рождения)
+            sorted_results = sorted(results, key=lambda x: x[1])
+
+            # Выводим результаты
+            for name, days in sorted_results:
+                print(f"{name} - have {days} days to birthday")
+        else:
+            print('No date matched...')
 
     def __str__(self):
         return "\n".join(str(record) for record in self.data.values())

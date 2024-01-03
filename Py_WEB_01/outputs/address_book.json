@@ -134,7 +134,8 @@
     "Ava-Garcia": {
         "name": "Ava-Garcia",
         "phones": [
-            "1112223333"
+            "1112223333",
+            "0383335755"
         ],
         "birthday": "1997-07-14",
         "email": "ava.garcia@example.com",
@@ -205,6 +206,15 @@
         "birthday": null,
         "email": null,
         "address": "Danmark 8600 S\u00f8ndergade 15",
+        "status": null,
+        "note": null
+    },
+    "Leon": {
+        "name": "Leon",
+        "phones": null,
+        "birthday": null,
+        "email": "leon@example.com",
+        "address": null,
         "status": null,
         "note": null
     }

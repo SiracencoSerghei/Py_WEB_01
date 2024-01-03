@@ -79,3 +79,4 @@ def add_contact(book, name, *phones):
     book.save_to_file('outputs/address_book.json')
     book.save_to_file('outputs/address_book.csv')
     return f"{GREEN}Contact {name} was added successfully!{RESET}"
+

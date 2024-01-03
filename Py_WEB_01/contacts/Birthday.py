@@ -30,10 +30,11 @@ class Birthday(Field):
             raise ValueError(f"{R}Not valid birthday date{RES}")
         self.value = new_value
 
-    def days_to_birthday(self):
+    @staticmethod
+    def days_to_birthday(bdate):
         today = datetime.now()
-        if self.value:
-            birthday_date = datetime.strptime(str(self.value), '%Y-%m-%d').replace(year=today.year)
+        if bdate:
+            birthday_date = datetime.strptime(str(bdate), '%Y-%m-%d').replace(year=today.year)
             if today > birthday_date:
                 birthday_date = birthday_date.replace(year=today.year + 1)
             delta = birthday_date - today

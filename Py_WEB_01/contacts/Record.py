@@ -45,11 +45,28 @@ class Record:
     @input_errors
     def edit_name(self, value):
         self.name = Name(value)
+        
+    @input_errors
+    def edit_birthday(self, value):
+        self.birthday = Birthday(value)
 
+    @input_errors
+    def edit_email(self, value):
+        self.email = Email(value)
+        
+    @input_errors
+    def edit_status(self, value):
+        self.status = Status(value)
+        
+    @input_errors
+    def edit_note(self, value):
+        self.note = Note(value)
 
     def days_to_birthday(self):
-        return self.birthday.days_to_birthday(self.birthday)
-
+        if self.birthday is not None:
+            bdate = self.birthday
+            result = Birthday.days_to_birthday(bdate)
+            return result
 
     def add_phone(self, phone):
         """Додає телефонний номер контакту.

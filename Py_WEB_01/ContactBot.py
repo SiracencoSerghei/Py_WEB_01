@@ -45,7 +45,10 @@ class ContactBot:
                     case 2:
                         book.edit_contact()
                     case 3:
-                        book.find()
+                        result = book.find()
+                        if not result:
+                            break
+                        book.show_records(result)
                     case 4:
                         book.del_record()
                     case 5:
@@ -63,36 +66,6 @@ class ContactBot:
                     case 8:
                         print(f"{RED}You have reached the main menu{RESET}")
                         break
-                    case "show-contact":
-                        try:
-                            book.show_records(book)
-                        except IndexError:
-                            pass
-
-                   
-                    case 'add-contact':
-                        try:
-                            pass
-                        except IndexError:
-                            print(f"{RED}You have to put name(or name-surname) and phone(s) after add-contact. "
-                                  f"Example: \n"
-                                  f"add-contact <name> <phone1> <phone2> ...{RESET}")
-                    
-                    case 'edit-contact':
-                        pass
-                        
-                    case 'delete-contact':
-                        pass
-
-
-                    case "days-to-birthday":
-                        if len(input_data) < 2:
-                            print(
-                                f"{RED}You need to provide a name after 'days-to-birthday'. "
-                                f"Example: days-to-birthday <name>{RESET}"
-                            )
-                        else:
-                            pass
 
 
             else:
