@@ -57,8 +57,9 @@ class ContactBot:
                             break
                         book.show_records(result)
                     case 6:
-                        # book.congratulate()
-                        pass
+                        
+                        book.congratulate()
+                        
 
                     case 7:
                         book.days_to_birthday()

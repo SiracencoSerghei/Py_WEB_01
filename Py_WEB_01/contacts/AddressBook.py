@@ -2,6 +2,8 @@ import json
 import pathlib
 from collections import UserDict
 from contacts.Record import Record
+from contacts.congratulates import print_week_bdays
+from datetime import date, datetime
 from rich.console import Console
 from rich.table import Table
 
@@ -15,7 +17,7 @@ RESET = "\033[0m"
 
 class AddressBook(UserDict):
     """A class representing an address book that stores records."""
-
+    
 
     def add_contact(self):
         """
@@ -376,6 +378,25 @@ class AddressBook(UserDict):
                 print(f"{name} - have {days} days to birthday")
         else:
             print('No date matched...')
+
+
+    def congratulate(self):
+        if self:
+            
+            # Создаем список словарей в формате users_list
+            
+            results = [{"name": record.name.value, "birthday": datetime.strptime(record.birthday, '%Y-%m-%d').date()} for record in self.data.values()
+                    if record.birthday]
+
+            # Сортируем список по второму элементу (дата рождения)
+            sorted_results = sorted(results, key=lambda x: x["birthday"])
+
+            # Выводим результаты
+            print_week_bdays(sorted_results)
+        else:
+            print('No date matched...')
+    
+
 
     def __str__(self):
         return "\n".join(str(record) for record in self.data.values())
