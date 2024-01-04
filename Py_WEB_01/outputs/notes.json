@@ -21,5 +21,12 @@
             "vitamin 50+",
             "make_a_surprise"
         ]
+    },
+    "ZERO": {
+        "title": "ZERO",
+        "notes": [
+            "null none",
+            "empty string"
+        ]
     }
 }

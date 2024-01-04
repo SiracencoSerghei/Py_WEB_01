@@ -10,6 +10,11 @@ BLUE = "\033[94m"
 YELLOW = "\033[43m"
 PINK = "\033[95m"
 RESET = "\033[0m"
+BOLD_RED_UNDERLINE = "\033[1;91;4m"
+START_UNDERLINE = "\033[4m"
+STOP_UNDERLINE = "\033[24m"
+START_BOLD = "\033[1m"
+STOP_BOLD = "\033[21m"
 
 
 filename = 'outputs/notes.json'
@@ -22,7 +27,7 @@ def load_notes_from_file():
         return Notes()  # Creating a new instance
 
 @input_errors
-def add_note_record_to_notes(notesbook, title, notes=None):
+def add_note_record_to_notes(notesbook):
     """Add a note to the notes book.
 
     Args:
@@ -33,26 +38,22 @@ def add_note_record_to_notes(notesbook, title, notes=None):
     Returns:
         str: A message indicating the result of the operation.
     """
-    # notes_list = []
-    # notes =notes[0]
-    # notes1 = ' '.join(notes)
-    # notes_list.append(notes[0])
-    record = NotesRecord(title, notes)
-    if record is None:
-        record = NotesRecord()
+    title = input("Enter the title name: ... ")
+    notes = input("Enter the notes for saving(dial separated by space): ... ")
+
+    # Create a NotesRecord object
+    record = NotesRecord(title)
+    record.add_notes(notes)
+    # Add the NotesRecord to the Notes instance
     notesbook.add_note_record(record)
+    
+    # Display the added record
+    print("New added record is:")
+    print(f'Title: {record.title}')
+    print(f'Notes: {record.notes}')
     notesbook.save_to_file_notes('outputs/notes.json')
-    return f"{GREEN}Note {title} was added successfully!{RESET}"
+    return f"Note '{title}' was added successfully!"
 
-
-# def add_note_to_book(book):
-#     title = input("Enter the title for the note: ")
-#     note = input("Enter a note to add: ")
-#     note_record = NotesRecord(title)
-#     note_record.add_notes(note)
-#     print('note_record from notas_utils: ', note_record)
-#     book.add_note_record(note_record)
-#     print(f'Note "{title}" has been added successfully.')
 
 
 def edit_note_in_book(book):
@@ -71,7 +72,7 @@ def delete_note_from_book(book):
     title = input("Enter the title of the note to delete: ")
     book.delete_note_record(title)
 
-def show_notes(notebook, chunk_size = None):
+def show_notes(notebook):
     """Display all contacts in the address book.
 
     Returns:
@@ -82,36 +83,9 @@ def show_notes(notebook, chunk_size = None):
     table = Table(title="Notes Book")
     table.add_column("Title", style="blue", justify="center", min_width=10, max_width=50)
     table.add_column("Notes", style="blue", justify="center", min_width=10, max_width=50)
-    list_notes = []
-    for title, value in notebook.data.items():
-        # notes = value.notes[0][0]
-        notes = value.notes
-        list_notes.append((title,notes))
-    num_records = len(list_notes)
-    if chunk_size is None or chunk_size > num_records:
-        chunk_size = num_records
-    i = 0
-    while num_records > i:
-        chunk = list_notes[i:i + chunk_size]  # list_note[0:len(list_notes)]
-        # print("CHANKK:  ", chunk)
-        for record in chunk:
-            title = record[0]
-            # notes_to_print = []
-            # notes = record[1]
-
-            # for note in record[1]:
-            #     notes_to_print.extend(note)
-            notes = ", ".join([str(notes) for notes in record[1]])
-            table.add_row(title, notes)
-            if chunk_size is not None:
-                table.add_row("=" * 50, "=" * 50)
-            i += chunk_size
-
-        if i < num_records:
-            # Если chunk_size указано и есть еще записи, ожидаем Enter для продолжения
-            console.print(table)
-            input(f"{PINK}Press Enter to show the next chunk...{RESET}")
-        else:
-            i = num_records
+    
+    for record in notebook.data.values():
+        table.add_row(record.title, str(record.notes))
+        table.add_row("=" * 50, "=" * 50)
     console.print(table)
 

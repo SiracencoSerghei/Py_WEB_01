@@ -15,14 +15,14 @@ class NotesRecord:
             """
     def __init__(self, title, notes=None):
         self.title = title
-        self.notes = list(notes)
-        # if notes is None:
-        #     self.notes=[]
-        # self.notes = [notes]
+        self.notes = []  # Initialize as an empty list by default
+
+        if notes is not None:
+            self.notes.extend(notes)
 
     def add_notes(self, note):
         self.notes.append(note)
-        print(f'Enjoy, you had added "{note}" to your notes.')
+        print(f'Enjoy, you had added "{note}" to your "{self.title}" notes.')
 
 # completely change the title
     def change_title(self, new_title):
@@ -181,35 +181,4 @@ class Notes(UserDict):
             print(f'Error loading notes from {filename}: {e}')
             return Notes()  # Return a new instance in case of an error
         
-        
-    #     class Notes(UserDict): 
-    # def add_note_record(self, note_record: NotesRecord): 
-    #     self.data[note_record.title] = note_record 
-    #     return self.data 
- 
-    # def search_note(self): 
-    #     search_info = input().lower() 
-    #     for note in self.data.values(): 
-    #         search_by_title = note.title.lower().find(search_info) 
-    #         search_by_notes = str([n.lower() for n in note.notes]).find(search_info) 
-    #         if search_by_title > -1 or search_by_notes > -1: 
-    #             print(note.title) 
- 
-    # def delete_note(self): 
-    #     delete_info = input().lower() 
-    #     result_list = [] 
-    #     for note in self.data.values(): 
-    #         search_by_title = note.title.lower().find(delete_info) 
-    #         search_by_notes = str([n.lower() for n in note.notes]).find(delete_info) 
-    #         if search_by_title > -1 or search_by_notes > -1: 
-    #             result_list.append(note) 
-    #     dict_with_number = dict(zip([i+1 for i in range(len(result_list))], [i.title for i in result_list])) 
-    #     print(dict_with_number) 
-    #     print('Please choose note number to delete?') 
-    #     try: 
-    #         delete_i = int(input()) 
-    #         for key, value in dict_with_number.items(): 
-    #             if key == delete_i: 
-    #                 del self.data[value] 
-    #     except ValueError: 
-    #         print("Invalid input. Please enter a valid number.")
+      

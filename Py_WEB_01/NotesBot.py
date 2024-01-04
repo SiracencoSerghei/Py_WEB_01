@@ -2,7 +2,7 @@
 from notes.note_manager import Notes
 from utils.notesMenu import show_notes_menu
 from  utils.chooseCommand import choseCommand
-from utils.notes_utils import load_notes_from_file, add_note_record_to_notes, show_notes
+from utils.notes_utils import show_notes, add_note_record_to_notes
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -34,25 +34,15 @@ class NotesBot:
             if command is not None:
                 match command:
                     case 1:
-                        book.add_note_record_to_notes()
+                        print(add_note_record_to_notes(book))
                     case 2:
-                        book.edit_note()
+                        book.search_notes_record()
                     case 3:
-                        try:
-                            book = Notes.load_from_file('outputs/notes.json')
-                            show_notes(book)
-                        except IndexError:
-                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
-
+                        show_notes(book)
                     case 4:
-                        book.delete_notes()
+                        book.delete_note()
                     case 5:
-                        try:
-                            book = Notes.load_from_file('outputs/notes.json')
-                            show_notes(book)
-                        except IndexError:
-                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
-
+                        show_notes(book)
                     case 6:
                         
                         book.congratulate()
