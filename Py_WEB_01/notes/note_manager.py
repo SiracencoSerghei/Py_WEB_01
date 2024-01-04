@@ -1,5 +1,5 @@
 from collections import UserDict
-from contacts.classes.Name import Name
+from contacts.Name import Name
 import json
 
 
@@ -117,94 +117,6 @@ class Notes(UserDict):
 
         except ValueError:
             print("Invalid input. Please enter a valid number.")
-
-        #
-        # chosen_record_for_edit =result_list[choice-1].title
-        # print("SXZ/ ", chosen_record_for_edit)
-        #
-        # print(type(chosen_record_for_edit))
-        #
-        # choice_edit_part_of_record = int(input('  Please Enter number of part to change:\n'
-        #                                        '    1. change title\n'
-        #                                        '    2. change notes completely\n'
-        #                                        '    3. only add to notes\n'))
-        # if choice_edit_part_of_record == 1:
-        #     old_title = self.data[chosen_record_for_edit]
-        #     print(type(old_title))
-        #     print(f" Old title is {old_title.title}")
-        #     to_change = input(" Enter new title: ")
-        #     print("to_chang: ", to_change)
-        #     notes = self.data[chosen_record_for_edit]
-        #     print(type(notes))
-        #     notes = notes.notes[0][0][:]
-        #
-        #     print("notes: ", notes)
-        #     self.data[chosen_record_for_edit] = NotesRecord(to_change, notes)
-        #
-
-
-
-        # for note in self.data.values():
-        #     print(note)
-        #     print(type(note))
-        #     search_by_title = note.title.lower().find(search_info)
-        #     search_by_notes = str([n for n in note.notes]).find(search_info)
-        #     if search_by_title > -1 or search_by_notes > -1:
-        #         return note.title
-            
-    # def find(self, param):
-    #     """
-    #     Find records that match the given parameter.
-
-    #     Args:
-    #         param (str): The search parameter.
-
-    #     Returns:
-    #         str: A string containing the matching records, separated by newline.
-
-    #     Note:
-    #         If the search parameter is less than 3 characters, it returns an error message.
-    #     """
-    #     if len(param) < 3:
-    #         return "Sorry, the search parameter must be at least 3 characters."
-
-    #     result = []
-
-    #     for i, record in enumerate(self.values()):
-
-    #         if param.lower() in record.title.lower():
-    #             result.append(record.title)
-    #             result.append('=' * 30)
-    #         elif param.lower():
-    #             matching_notes = [note for note in record.notes if param in note]
-    #             if matching_notes:
-    #                 result.append(record.title)
-    #                 result.append('=' * 30)
-
-    #     if not result:
-    #         return "No records found for the given parameter."
-
-    #     print(result)
-    #     return '\n'.join(result)
-
-    # def del_record(self, name_to_delete):
-    #     """Delete a record from the notes book.
-
-    #     Args:
-    #         name_to_delete (str): The name of the record to delete.
-
-    #     Returns:
-    #         None
-    #     """
-    #     try:
-    #         if name_to_delete in self.data:
-    #             del self.data[name_to_delete]
-    #             self.save_to_file('outputs/notes.json')  # Save changes to file
-    #             print(f"Note '{name_to_delete}' deleted successfully")
-    #         else:
-    #             print(f"No note found with the name {name_to_delete}")
-    #     except Exception as e:
-    #         print(f"Error deleting note: {name_to_delete}")
 
     def delete_note(self):
         delete_info = input("Enter the search parameter: ").lower()
