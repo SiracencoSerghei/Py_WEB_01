@@ -15,8 +15,7 @@ class NotesRecord:
             """
     def __init__(self, title, notes=None):
         self.title = title
-        self.notes = []  # Initialize as an empty list by default
-
+        self.notes = []
         if notes is not None:
             self.notes.extend(notes)
 

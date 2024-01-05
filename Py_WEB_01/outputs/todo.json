@@ -19,5 +19,25 @@
             "call",
             "USA"
         ]
+    },
+    "hm": {
+        "task": "hm",
+        "begin date": "2024-01-04",
+        "end date": "2024-01-07",
+        "status": "pending",
+        "tags": [
+            "hw",
+            "02"
+        ]
+    },
+    "reparation": {
+        "task": "reparation",
+        "begin date": "2024-01-05",
+        "end date": "2024-01-30",
+        "status": "in pending",
+        "tags": [
+            "repar",
+            "house"
+        ]
     }
 }

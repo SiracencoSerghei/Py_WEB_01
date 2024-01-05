@@ -4,4 +4,5 @@ def good_bye():
         Returns:
             str: A farewell message.
         """
+        print("Good bye!")
         return "Good bye!"

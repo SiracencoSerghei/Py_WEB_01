@@ -1,20 +1,16 @@
 from collections import UserDict
 from datetime import datetime
 import json
-from contacts.classes.Field import Field
-from contacts.classes.Birthday import Birthday
+from contacts.Field import Field
+from contacts.Birthday import Birthday
 
 class ToDoRecord:
-    def __init__(self, task, begin, end, status=None, tags=None):
+    def __init__(self, task, begin=None, end=None, status=None, tags=None):
         self.task = task
-        self.begin = begin
+        self.begin = begin 
         self.end = end
         self.status = status
-        self.tags = list(tags)
-
-    # {'task def add_task(self, task, date, status, tags):
-    #     #     self.tasks.append(': task, 'date': date, 'status': status, 'tags': tags})
-    #     print(f'You had added "{task}" for your to do list.')
+        self.tags = [] if tags is None else tags
 
     # adding tags while creating ToDoRecord class instance
     def add_tags(self, tag):
@@ -225,6 +221,7 @@ class ToDoBook(UserDict):
         except ValueError:
             print("Invalid input. Please enter a valid info for delete.")
 
+    @staticmethod
     def convert_to_serializable_todo(todobook):
         serializable_data = {}
         for key, record in todobook.items():
