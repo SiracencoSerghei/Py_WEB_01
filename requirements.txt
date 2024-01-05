@@ -1,0 +1,10 @@
+markdown-it-py==3.0.0
+mdurl==0.1.2
+prompt-toolkit==3.0.43
+-e git+https://github.com/SiracencoSerghei/Py_WEB_01.git@25796ec359fe02aab726713b4c41403f26f8d349#egg=py_web_01
+Pygments==2.17.2
+rich==13.7.0
+wcwidth==0.2.12
+python==3.11.6
+
+
