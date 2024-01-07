@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Py_WEB_01"
+name = "helper-app"
 version = "0.1.0"
 description = "Web-HomeWork-01"
 authors = ["siracencoserghei <siracencoserghei@gmail.com>"]

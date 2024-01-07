@@ -1,10 +1,35 @@
-FROM python:3.11
 
-WORKDIR /Py_WEB_01
+# Docker-команда FROM вказує базовий образ контейнера
+# Наш базовий образ - це Linux з попередньо встановленим python-3.11
+FROM python:3.11-slim
 
+# Встановлення базових залежностей
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Створення директорії програми
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+
+# Копіювання залежностей проекту
+COPY pyproject.toml poetry.lock $APP_HOME/
+
+# Установка Poetry та залежностей
+RUN pip install poetry
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-interaction --no-ansi
+
+# Копіювання інших файлів проекту
 COPY . .
 
-RUN pip install -r requirements.txt
+# Створення директорії для даних користувача
+RUN mkdir $APP_HOME/user_data
 
-ENTRYPOINT ["python", "Py_WEB_01.__main__"]
+# Встановлення робочої директорії для даних користувача
+WORKDIR $APP_HOME/user_data
+
+# Запуск програми всередині контейнера
+ENTRYPOINT ["poetry", "run", "Py_WEB_01/__main__"]
+
 
