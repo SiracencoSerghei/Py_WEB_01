@@ -8,25 +8,24 @@ RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy both pyproject.toml and poetry.lock to the working directory
-COPY pyproject.toml poetry.lock /app/
+# Copy only the pyproject.toml file to the working directory
+COPY pyproject.toml /app/
 
 # Install Poetry
 RUN pip install poetry
 
+# Generate poetry.lock inside the container
+RUN poetry lock
+
 # Install project dependencies
 RUN poetry install --no-interaction --no-ansi
 
+# Set permissions on the app directory
+RUN chmod -R 777 /app
+
 # Copy the entire project to the working directory
-COPY . /app/
-
-# Set up a directory for user data
-RUN mkdir /app/user_data
-
-# Set the working directory for user data
-WORKDIR /app/user_data
+COPY . /app
 
 # Specify the command to run on container start
-CMD ["poetry", "run", "Py_WEB_01/Py_WEB_01/__main__.py"]
-
+CMD ["poetry", "run", "python3", "Py_WEB_01/__main__.py"]
 
