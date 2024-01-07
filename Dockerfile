@@ -20,11 +20,11 @@ RUN poetry lock
 # Install project dependencies
 RUN poetry install --no-interaction --no-ansi
 
-# Set permissions on the app directory
-RUN chmod -R 777 /app
-
 # Copy the entire project to the working directory
 COPY . /app
+
+# Set permissions for the outputs directory
+RUN chmod -R 777 /app/Py_WEB_01/outputs
 
 # Specify the command to run on container start
 CMD ["poetry", "run", "python3", "Py_WEB_01/__main__.py"]
